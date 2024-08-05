@@ -140,7 +140,7 @@
     <ClCompile Include="operands.c" />
     <ClCompile Include="pre_compile.c" />
     <ClCompile Include="register_builder.c" />
-    <ClCompile Include="row_handler.c" />
+    <ClCompile Include="file_magager.c" />
     <ClCompile Include="strings.c" />
   </ItemGroup>
   <ItemGroup>
@@ -150,7 +150,7 @@
     <ClInclude Include="macro_manager.h" />
     <ClInclude Include="number_handler.h" />
     <ClInclude Include="operands.h" />
-    <ClInclude Include="row_handler.h" />
+    <ClInclude Include="file_manager.h" />
     <ClInclude Include="strings.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

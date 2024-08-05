@@ -48,7 +48,7 @@
     <ClCompile Include="register_builder.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="row_handler.c">
+    <ClCompile Include="file_magager.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="strings.c">
@@ -74,7 +74,7 @@
     <ClInclude Include="operands.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="row_handler.h">
+    <ClInclude Include="file_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="strings.h">
