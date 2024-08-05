@@ -93,8 +93,25 @@ char** process_file_line(MacroManager* manager, char** input, size_t input_count
 		}
 	}
 
-	return input;
+	// Allocate new memory for processed_line
+	char** processed_line = malloc((input_count + 1) * sizeof(char*));
+	if (processed_line == NULL) {
+		fprintf(stderr, "Memory allocation failed\n");
+		exit(EXIT_FAILURE);
+	}
+	for (i = 0; i < input_count; ++i) {
+		processed_line[i] = malloc((strlen(input[i]) + 1) * sizeof(char));
+		if (processed_line[i] == NULL) {
+			fprintf(stderr, "Memory allocation failed\n");
+			exit(EXIT_FAILURE);
+		}
+		strcpy(processed_line[i], input[i]);
+	}
+	processed_line[input_count] = NULL; // Null-terminate the processed line
+
+	return processed_line;
 }
+
 
 void free_macro_manager(MacroManager* manager) {
 	size_t i, j, k;

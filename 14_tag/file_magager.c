@@ -56,7 +56,7 @@ void input_process(FileManager* fileManager, MacroManager* macroManager, const c
     }
 
 
-    print_post_macro(fileManager);
+    //print_post_macro(fileManager);
     fclose(file);
 
 
