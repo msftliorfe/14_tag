@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "actions.h"
 #include "file_manager.h"
-#include "labels_handler.h"
+#include "labels_manager.h"
 #include "number_handler.h"
 #include "macro_manager.h"
 
@@ -128,6 +128,11 @@ int main(int argc, char** argv) {
 	// Print the post_macro matrix
 	print_post_macro(&fileManager);
 
+	LabelsManager* manager = createLabelsManager();
+
+
+
 	free_file_manager(&fileManager);
+
 	return 0;
 }

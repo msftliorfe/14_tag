@@ -27,7 +27,7 @@
     <ClCompile Include="immediate_builder.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="labels_handler.c">
+    <ClCompile Include="labels_manager.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="macro_manager.c">
@@ -42,16 +42,13 @@
     <ClCompile Include="operands.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pre_compile.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="register_builder.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="file_magager.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="strings.c">
+    <ClCompile Include="strings_manager.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,10 +56,7 @@
     <ClInclude Include="actions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="combined_register.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="labels_handler.h">
+    <ClInclude Include="labels_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="macro_manager.h">
@@ -77,7 +71,7 @@
     <ClInclude Include="file_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="strings.h">
+    <ClInclude Include="strings_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

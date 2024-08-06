@@ -1,13 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "labels_handler.h"
-
-struct LabelsManager {
-    Labels* array;
-    size_t used;
-    size_t size;
-};
+#include "labels_manager.h"
 
 LabelsManager* createLabelsManager() {
     LabelsManager* manager = malloc(sizeof(LabelsManager));

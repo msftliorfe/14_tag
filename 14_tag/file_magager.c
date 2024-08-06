@@ -1,5 +1,5 @@
 #include "file_manager.h"
-#include "strings.h"
+#include "strings_manager.h"
 #include "macro_manager.h"
 #include <string.h>
 

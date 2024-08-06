@@ -11,7 +11,7 @@ typedef struct {
 
 void initialize_file_manager(FileManager* manager);
 void free_file_manager(FileManager* manager);
-void input_process(FileManager* manager, const char* file_path);
+void input_process(FileManager* fileManager, MacroManager* macroManager, const char* file_path);
 void print_post_macro(FileManager* manager);
 
 #endif // FILE_MANAGER_H

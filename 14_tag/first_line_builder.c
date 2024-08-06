@@ -3,9 +3,9 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "labels_handler.h"
+#include "labels_manager.h"
 #include "actions.h"
-#include "strings.h"
+#include "strings_manager.h"
 #include "operands.h"
 #include "number_handler.h"
 
@@ -47,7 +47,7 @@ char* generate_operand_code(const char* operand) {
     return code;
 }
 
-static  char* generate_line(LabelsManager* manager, const char* action_name, const char* operand_source, const char* operand_target) {
+  char* generate_first_line(LabelsManager* manager, const char* action_name, const char* operand_source, const char* operand_target) {
     // Allocate memory for result string
     char* res = malloc(TOTAL_LENGTH + 1); // +1 for the null terminator
     if (res == NULL) {

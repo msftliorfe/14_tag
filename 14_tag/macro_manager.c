@@ -9,7 +9,7 @@ void init_macro_manager(MacroManager* manager) {
 }
 
 char** process_file_line(MacroManager* manager, char** input, size_t input_count) {
-	size_t i, j, k;
+	size_t i, j;
 
 
 	if (input_count == 0) return NULL;
@@ -156,7 +156,7 @@ char*** get_macro_content(MacroManager* manager, const char* macro_name) {
 				result[j][row_length] = NULL; // Null-terminate the row
 			}
 			result[macro->row_count] = NULL; // Null-terminate the result array
-			return (char**)result;
+			return result;
 		}
 	}
 }

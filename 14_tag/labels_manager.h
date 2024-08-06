@@ -6,6 +6,12 @@ typedef struct {
     int label_location;
 } Labels;
 
+struct LabelsManager {
+    Labels* array;
+    size_t used;
+    size_t size;
+};
+
 typedef struct LabelsManager LabelsManager;
 
 // Function to create a LabelsManager instance

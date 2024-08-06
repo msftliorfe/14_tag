@@ -1,4 +1,4 @@
-#include "strings.h"  // Make sure this header file contains the function prototype
+#include "strings_manager.h"  // Make sure this header file contains the function prototype
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>

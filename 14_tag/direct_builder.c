@@ -2,17 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include "number_handler.h"
-#include "labels_handler.h"
+#include "labels_manager.h"
 
 
-static char* are(int num) {// the num is a location of a label based on the LabelsManager
+char* direct_are(int num) {// the num is a location of a label based on the LabelsManager
 	if (num == 0) { // external labal
 		return "001";
 	}
 	return "010";
 }
 
-static  char* generate_line(int num) { // the num is a location of a label based on the LabelsManager
+char* generate_direct_line(int num) { // the num is a location of a label based on the LabelsManager
 	char* binaryString = intTo12BitUnsignedString(num);
 	char* staticString = are(num);
 

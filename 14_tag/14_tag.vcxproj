@@ -133,25 +133,23 @@
     <ClCompile Include="direct_builder.c" />
     <ClCompile Include="first_line_builder.c" />
     <ClCompile Include="immediate_builder.c" />
-    <ClCompile Include="labels_handler.c" />
+    <ClCompile Include="labels_manager.c" />
     <ClCompile Include="macro_manager.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="number_handler.c" />
     <ClCompile Include="operands.c" />
-    <ClCompile Include="pre_compile.c" />
     <ClCompile Include="register_builder.c" />
     <ClCompile Include="file_magager.c" />
-    <ClCompile Include="strings.c" />
+    <ClCompile Include="strings_manager.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actions.h" />
-    <ClInclude Include="combined_register.h" />
-    <ClInclude Include="labels_handler.h" />
+    <ClInclude Include="labels_manager.h" />
     <ClInclude Include="macro_manager.h" />
     <ClInclude Include="number_handler.h" />
     <ClInclude Include="operands.h" />
     <ClInclude Include="file_manager.h" />
-    <ClInclude Include="strings.h" />
+    <ClInclude Include="strings_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
