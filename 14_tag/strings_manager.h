@@ -11,6 +11,6 @@ char** split_string(const char* str);
 
 // Function to free the allocated memory for the array of strings
 void free_split_string(char** split_str);
-
+char* letter_to_15bit_ascii(char letter);
 
 #endif // STRINGS_H

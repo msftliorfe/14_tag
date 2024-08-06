@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "number_handler.h"
-#include "labels_manager.h"
+#include "symbols_manager.h"
 
 
 char* direct_are(int num) {// the num is a location of a label based on the LabelsManager
@@ -14,7 +14,7 @@ char* direct_are(int num) {// the num is a location of a label based on the Labe
 
 char* generate_direct_line(int num) { // the num is a location of a label based on the LabelsManager
 	char* binaryString = intTo12BitUnsignedString(num);
-	char* staticString = are(num);
+	char* staticString = direct_are(num);
 
 	if (!binaryString || !staticString) {
 		if (binaryString) free(binaryString); // Free memory if only one allocation succeeded

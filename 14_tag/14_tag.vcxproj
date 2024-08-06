@@ -133,7 +133,7 @@
     <ClCompile Include="direct_builder.c" />
     <ClCompile Include="first_line_builder.c" />
     <ClCompile Include="immediate_builder.c" />
-    <ClCompile Include="labels_manager.c" />
+    <ClCompile Include="symbols_manager.c" />
     <ClCompile Include="macro_manager.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="number_handler.c" />
@@ -144,7 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actions.h" />
-    <ClInclude Include="labels_manager.h" />
+    <ClInclude Include="symbols_manager.h" />
     <ClInclude Include="macro_manager.h" />
     <ClInclude Include="number_handler.h" />
     <ClInclude Include="operands.h" />

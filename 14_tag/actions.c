@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "actions.h"
+#include <stdbool.h> // Include for the bool type
 
 // Define the actions array
 Action actions[] = {
@@ -69,3 +70,15 @@ const char* get_action_code(const char* action_name) {
     }
     return NULL; // Return NULL if action name not found
 }
+
+// Function to check if a string exists as an action name
+bool action_exists(const char* action_name) {
+    int i; // Declare loop control variable outside the loop for ANSI C
+    for (i = 0; i < num_actions; i++) {
+        if (strcmp(actions[i].action_name, action_name) == 0) {
+            return true; // Action name found
+        }
+    }
+    return false; // Action name not found
+}
+

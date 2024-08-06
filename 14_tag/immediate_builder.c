@@ -14,7 +14,7 @@ char* immediate_are() {
 char* generate_immediate_line(int num) {
 	// Generate binary string representation
 	char* binaryString = intTo12Bit2ComplementString(num);
-	char* staticString = are(); // Static string
+	char* staticString = immediate_are(); // Static string
 
 	// Check for NULL pointers and free allocated memory if necessary
 	if (!binaryString) {

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "actions.h"
 #include "file_manager.h"
-#include "labels_manager.h"
+#include "symbols_manager.h"
 #include "number_handler.h"
 #include "macro_manager.h"
 
@@ -121,14 +121,14 @@ int main(int argc, char** argv) {
 	MacroManager macroManager;
 	init_macro_manager(&macroManager);
 
-	const char* file_path = "C:\\Users\\liorgishry\\OneDrive - Microsoft\\Documents\\c_input_file.txt";
+	const char* file_path = "C:\\Users\\liorgishry\\OneDrive - Microsoft\\Documents\\c_input_2_file.txt";
 
 	input_process(&fileManager, &macroManager, file_path);
 
 	// Print the post_macro matrix
 	print_post_macro(&fileManager);
 
-	LabelsManager* manager = createLabelsManager();
+	SymbolsManager* manager = createSymbolsManager();
 
 
 

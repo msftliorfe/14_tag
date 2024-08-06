@@ -15,4 +15,6 @@ char* intToThreeBitBinary(int num);
 // Convert an int to a 4-bit string
 char* intTo4BitString(int number);
 
+char* int_to_15bit_twos_complement(int number);
+
 #endif // NUMBER_HANDLER_H
