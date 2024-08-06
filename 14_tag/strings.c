@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 /**
  * Checks if the given string is NULL or empty.
@@ -24,9 +25,11 @@ char** split_string(const char* str) {
     const char* start = str;
     size_t index = 0;
     while (*start) {
-        while (*start == ' ' && *start != '\0') start++; // Skip leading spaces
+        // Skip leading spaces and commas
+        while ((*start == ' ' || *start == ',') && *start != '\0') start++;
         const char* end = start;
-        while (*end != ' ' && *end != '\0') end++; // Find the end of the word
+        // Find the end of the word
+        while (*end != ' ' && *end != ',' && *end != '\0') end++;
 
         if (end > start) {
             size_t len = (size_t)(end - start);
