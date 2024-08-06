@@ -65,7 +65,7 @@ char** process_file_line(MacroManager* manager, char** input, size_t input_count
 	for (i = 0; i < manager->macro_count; ++i) {
 		if (strcmp(manager->macro_names[i], input[0]) == 0) {
 			Macro* macro = &manager->macros[i];
-			char** result = malloc((macro->row_count + 1) * sizeof(char*));
+			char*** result = malloc((macro->row_count + 1) * sizeof(char**));
 			if (result == NULL) {
 				// Handle allocation failure
 				return NULL;
@@ -73,25 +73,28 @@ char** process_file_line(MacroManager* manager, char** input, size_t input_count
 			for (j = 0; j < macro->row_count; ++j) {
 				size_t k, row_length = 0;
 				for (k = 0; macro->commands[j][k] != NULL; ++k) {
-					row_length += strlen(macro->commands[j][k]) + 1;
+					row_length++;
 				}
-				result[j] = malloc((row_length + 1) * sizeof(char));
+				result[j] = malloc((row_length + 1) * sizeof(char*));
 				if (result[j] == NULL) {
 					// Handle allocation failure
 					return NULL;
 				}
-				result[j][0] = '\0';
 				for (k = 0; macro->commands[j][k] != NULL; ++k) {
-					strcat(result[j], macro->commands[j][k]);
-					if (macro->commands[j][k + 1] != NULL) {
-						strcat(result[j], " ");
+					result[j][k] = malloc((strlen(macro->commands[j][k]) + 1) * sizeof(char));
+					if (result[j][k] == NULL) {
+						// Handle allocation failure
+						return NULL;
 					}
+					strcpy(result[j][k], macro->commands[j][k]);
 				}
+				result[j][row_length] = NULL; // Null-terminate the row
 			}
 			result[macro->row_count] = NULL; // Null-terminate the result array
-			return result;
+			return (char**)result;
 		}
 	}
+
 
 	// Allocate new memory for processed_line
 	char** processed_line = malloc((input_count + 1) * sizeof(char*));
@@ -110,6 +113,15 @@ char** process_file_line(MacroManager* manager, char** input, size_t input_count
 	processed_line[input_count] = NULL; // Null-terminate the processed line
 
 	return processed_line;
+}
+
+bool is_macro_name(MacroManager* manager, const char* name) {
+	for (size_t i = 0; i < manager->macro_count; ++i) {
+		if (strcmp(manager->macro_names[i], name) == 0) {
+			return true;
+		}
+	}
+	return false;
 }
 
 

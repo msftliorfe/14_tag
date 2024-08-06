@@ -36,7 +36,7 @@ void input_process(FileManager* fileManager, MacroManager* macroManager, const c
 		size_t split_count = 0;
 		while (split_line[split_count] != NULL) split_count++;
 
-		char** processed_line = process_file_line(macroManager, split_line, split_count);
+		char*** processed_line = process_file_line(macroManager, split_line, split_count);
 
 		if (processed_line != NULL) {
 			fileManager->post_macro = realloc(fileManager->post_macro, (fileManager->row_count + 1) * sizeof(char**));
