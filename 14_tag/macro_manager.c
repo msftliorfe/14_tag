@@ -9,7 +9,8 @@ void init_macro_manager(MacroManager* manager) {
 }
 
 char** process_file_line(MacroManager* manager, char** input, size_t input_count) {
-	size_t i, j;
+	size_t i, j, k;
+
 
 	if (input_count == 0) return NULL;
 
@@ -122,6 +123,42 @@ bool is_macro_name(MacroManager* manager, const char* name) {
 		}
 	}
 	return false;
+}
+
+char*** get_macro_content(MacroManager* manager, const char* macro_name) {
+	size_t i, j;
+	for (i = 0; i < manager->macro_count; ++i) {
+		if (strcmp(manager->macro_names[i], macro_name) == 0) {
+			Macro* macro = &manager->macros[i];
+			char*** result = malloc((macro->row_count + 1) * sizeof(char**));
+			if (result == NULL) {
+				// Handle allocation failure
+				return NULL;
+			}
+			for (j = 0; j < macro->row_count; ++j) {
+				size_t k, row_length = 0;
+				for (k = 0; macro->commands[j][k] != NULL; ++k) {
+					row_length++;
+				}
+				result[j] = malloc((row_length + 1) * sizeof(char*));
+				if (result[j] == NULL) {
+					// Handle allocation failure
+					return NULL;
+				}
+				for (k = 0; macro->commands[j][k] != NULL; ++k) {
+					result[j][k] = malloc((strlen(macro->commands[j][k]) + 1) * sizeof(char));
+					if (result[j][k] == NULL) {
+						// Handle allocation failure
+						return NULL;
+					}
+					strcpy(result[j][k], macro->commands[j][k]);
+				}
+				result[j][row_length] = NULL; // Null-terminate the row
+			}
+			result[macro->row_count] = NULL; // Null-terminate the result array
+			return (char**)result;
+		}
+	}
 }
 
 

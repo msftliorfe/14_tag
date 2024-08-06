@@ -35,18 +35,44 @@ void input_process(FileManager* fileManager, MacroManager* macroManager, const c
 		char** split_line = split_string(line);
 		size_t split_count = 0;
 		while (split_line[split_count] != NULL) split_count++;
+		if (is_macro_name(macroManager, *split_line))
+		{
+			char*** processed_lines = get_macro_content(macroManager, *split_line);
 
-		char*** processed_line = process_file_line(macroManager, split_line, split_count);
+			for (int i = 0; processed_lines[i] != NULL; i++) {
+				char** row = processed_lines[i];  // Each row is a char**
 
-		if (processed_line != NULL) {
-			fileManager->post_macro = realloc(fileManager->post_macro, (fileManager->row_count + 1) * sizeof(char**));
-			if (fileManager->post_macro == NULL) {
-				fprintf(stderr, "Memory allocation failed\n");
-				exit(EXIT_FAILURE);
+				fileManager->post_macro = realloc(fileManager->post_macro, (fileManager->row_count + 1) * sizeof(char**));
+				if (fileManager->post_macro == NULL) {
+					fprintf(stderr, "Memory allocation failed\n");
+					exit(EXIT_FAILURE);
+				}
+				fileManager->post_macro[fileManager->row_count] = row;
+				fileManager->row_count++;
+				
+
+
+				//for (int j = 0; row[j] != NULL; j++) {
+				//	char* cell = row[j];  // Each cell is a char*
+				//	printf("Row %d, Column %d: %s\n", i, j, cell);
+				//}
 			}
-			fileManager->post_macro[fileManager->row_count] = processed_line;
-			fileManager->row_count++;
+
 		}
+		else {
+			char** processed_line = process_file_line(macroManager, split_line, split_count);
+			if (processed_line != NULL) {
+				fileManager->post_macro = realloc(fileManager->post_macro, (fileManager->row_count + 1) * sizeof(char**));
+				if (fileManager->post_macro == NULL) {
+					fprintf(stderr, "Memory allocation failed\n");
+					exit(EXIT_FAILURE);
+				}
+				fileManager->post_macro[fileManager->row_count] = processed_line;
+				fileManager->row_count++;
+			}
+
+		}
+
 
 		// Free the split line
 		for (size_t i = 0; split_line[i] != NULL; ++i) {

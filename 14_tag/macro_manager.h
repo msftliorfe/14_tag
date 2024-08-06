@@ -23,6 +23,7 @@ typedef struct {
 void init_macro_manager(MacroManager* manager);
 char** process_file_line(MacroManager* manager, char** input, size_t input_count);
 void free_macro_manager(MacroManager* manager);
+char*** get_macro_content(MacroManager* manager, const char* macro_name);
 bool is_macro_name(MacroManager* manager, const char* name);
 
 #endif // MACRO_MANAGER_H
