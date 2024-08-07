@@ -98,3 +98,26 @@ char* letter_to_15bit_ascii(char letter) {
 
 	return result;
 }
+
+char* strtrimlast(const char* src) {
+	size_t len = strlen(src);
+
+	// Check if the string is empty
+	if (len == 0) {
+		return NULL; // Return NULL for empty strings
+	}
+
+	// Allocate memory for the new string excluding the last character plus the null terminator
+	char* dest = (char*)malloc(len);
+	if (dest == NULL) {
+		return NULL; // Return NULL if memory allocation fails
+	}
+
+	// Copy all characters except the last one
+	strncpy(dest, src, len - 1);
+
+	// Ensure the new string is null-terminated
+	dest[len - 1] = '\0';
+
+	return dest;
+}

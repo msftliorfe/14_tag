@@ -4,7 +4,7 @@
 #include "symbols_manager.h"
 #include "number_handler.h"
 #include "macro_manager.h"
-
+#include "assembler_manager.h"
 int main(int argc, char** argv) {
 
 	//actions tester
@@ -127,9 +127,13 @@ int main(int argc, char** argv) {
 
 	// Print the post_macro matrix
 	print_post_macro(&fileManager);
+	AssemblerManager* assemblerManager = createAssemblerManager();
 
-	SymbolsManager* manager = createSymbolsManager();
-
+	SymbolsManager* symbolsManager = createSymbolsManager();
+	generat_symbols_table(symbolsManager, &fileManager, assemblerManager);
+	printSymbols(symbolsManager);
+	printEnt(symbolsManager);
+	printExt(symbolsManager);
 
 
 	free_file_manager(&fileManager);
