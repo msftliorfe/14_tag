@@ -13,5 +13,5 @@ char** split_string(const char* str);
 void free_split_string(char** split_str);
 char* letter_to_15bit_ascii(char letter);
 char* strtrimlast(const char* src);
-
+char* remove_first_last(const char* str);
 #endif // STRINGS_H

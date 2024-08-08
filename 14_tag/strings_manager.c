@@ -121,3 +121,24 @@ char* strtrimlast(const char* src) {
 
 	return dest;
 }
+
+char* remove_first_last(const char* str) {
+	size_t len = strlen(str);
+	if (len <= 2) {
+		// If the string has two or fewer characters, return an empty string
+		return strdup("");
+	}
+
+	// Allocate memory for the new string
+	char* new_str = (char*)malloc(len - 1);
+	if (new_str == NULL) {
+		perror("Failed to allocate memory");
+		exit(EXIT_FAILURE);
+	}
+
+	// Copy the substring excluding the first and last characters
+	strncpy(new_str, str + 1, len - 2);
+	new_str[len - 2] = '\0'; // Null-terminate the new string
+
+	return new_str;
+}
