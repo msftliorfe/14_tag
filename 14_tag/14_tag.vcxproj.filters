@@ -89,5 +89,14 @@
     <ClInclude Include="first_line_builder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="immediate_builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="direct_builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="register_builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

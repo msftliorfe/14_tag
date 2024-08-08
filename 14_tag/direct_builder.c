@@ -3,7 +3,7 @@
 #include <string.h>
 #include "number_handler.h"
 #include "symbols_manager.h"
-
+#include "direct_builder.h"
 
 char* direct_are(int num) {// the num is a location of a label based on the LabelsManager
 	if (num == 0) { // external labal

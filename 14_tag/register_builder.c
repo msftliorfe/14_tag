@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "number_handler.h"
-
+#include "register_builder.h"
 /**
  * Function to return the ARE string.
  * @return The ARE string.

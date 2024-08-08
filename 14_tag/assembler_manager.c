@@ -7,7 +7,8 @@
 #include "strings_manager.h"
 #include "operands.h"
 #include <stdbool.h> // Include for the bool type
-
+#include "immediate_builder.h"
+#include "register_builder.h"
 // Function to create and initialize an AssemblerManager
 AssemblerManager* createAssemblerManager() {
 	AssemblerManager* manager = (AssemblerManager*)malloc(sizeof(AssemblerManager));
@@ -62,8 +63,9 @@ void first_scan(FileManager* fileManager, AssemblerManager* assemblerManager, Sy
 void processActionLine(char** line, AssemblerManager* assemblerManager) {
 	// Example processing, needs actual implementation
 	//addActionItem(assemblerManager, assemblerManager->IC, *line);
+	bool reg_dest_was_handled = false;
 	char* first_line = process_first_line(line);
-	addActionItem(assemblerManager, assemblerManager->IC, first_line);
+	addActionItem(assemblerManager, line[0], assemblerManager->IC, first_line);
 	char* action_name = clone_string(line[0]);
 	char* source_operands = get_source_operands(action_name);
 	char* destination_operands = get_destination_operands(action_name);
@@ -76,54 +78,77 @@ void processActionLine(char** line, AssemblerManager* assemblerManager) {
 			if (has_dest_operands) {
 				AddressingType	addressing_type_dest = get_addressing_type(line[2]);
 				if (addressing_type_dest == DirectRegister || addressing_type_dest == IndirectRegister) {
+					reg_dest_was_handled = true;
 					int dest_reg_num = addressing_type_dest == DirectRegister ? line[2][1] - '0' : line[2][2] - '0';
 					char* line_to_add = generate_combined_register_line(source_reg_num, dest_reg_num); // pass the reg number without * sign
-					addActionItem(assemblerManager, assemblerManager->IC, line_to_add);
+					addActionItem(assemblerManager, "", assemblerManager->IC, line_to_add);
 
 				}
-				else {//DirectRegister or IndirectRegister in source but not DirectRegister or IndirectRegister in dest
-					char* line_to_add = generate_single_register_line(source_reg_num, source_reg_num); // pass the reg number without * sign
-					addActionItem(assemblerManager, assemblerManager->IC, line_to_add);
-					switch (addressing_type_dest)
-					{
-					case Immediate: {
-						int number = atoi(line[1] + 1);
-						char* line_to_add = generate_immediate_line(number);
-						addActionItem(assemblerManager, assemblerManager->IC, line_to_add);
-						break;
-					}
-					case Direct: {
-						addActionItem(assemblerManager, assemblerManager->IC, "LABEL_PLACE_HOLDER");
-						break;
-					}
+				else {//DirectRegister or IndirectRegister in source and there is a dest but not DirectRegister or IndirectRegister in dest
+					char* line_to_add = generate_single_register_line(source_reg_num, true); // pass the reg number without * sign
+					addActionItem(assemblerManager, "", assemblerManager->IC, line_to_add);
+					//switch (addressing_type_dest) // there is dest so check the dest addressing type
+					//{
+					//case Immediate: {
+					//	int number = atoi(line[1] + 1);
+					//	char* line_to_add = generate_immediate_line(number);
+					//	addActionItem(assemblerManager, "", assemblerManager->IC, line_to_add);
+					//	break;
+					//}
+					//case Direct: {
+					//	addActionItem(assemblerManager, "", assemblerManager->IC, line[2]);
+					//	break;
+					//}
 
-					}
+					//}
 				}
 			}
-			else { // DirectRegister or IndirectRegister in source but doesnt have dest operands
+			else { // DirectRegister or IndirectRegister in source but no dest operands at all
 				char* line_to_add = generate_single_register_line(source_reg_num, true); // pass the reg number without * sign
-				addActionItem(assemblerManager, assemblerManager->IC, line_to_add);
+				addActionItem(assemblerManager, "", assemblerManager->IC, line_to_add);
 			}
 		}
-		else { // not DirectRegister or IndirectRegister in source
+		else { // not DirectRegister or IndirectRegister in source only Immediate or Direct
 			switch (addressing_type_source)
 			{
 			case Immediate: {
 				int number = atoi(line[1] + 1);
 				char* line_to_add = generate_immediate_line(number);
-				addActionItem(assemblerManager, assemblerManager->IC, line_to_add);
+				addActionItem(assemblerManager, "", assemblerManager->IC, line_to_add);
 				break;
 			}
 			case Direct: {
-				addActionItem(assemblerManager, assemblerManager->IC, "LABEL_PLACE_HOLDER");
+				addActionItem(assemblerManager, "", assemblerManager->IC, line[1]);
 				break;
 			}
 
 			}
 		}
 	}
-	else { // no source operands
-
+	if (has_dest_operands) { // handle dest operands, but skip DirectRegister and IndirectRegister if already handled
+		int location_of_current_operand = has_source_operands ? 2 : 1;
+		AddressingType	addressing_type_dest = get_addressing_type(line[location_of_current_operand]);
+		switch (addressing_type_dest)
+		{
+		case Immediate: {
+			int number = atoi(line[location_of_current_operand] + 1);
+			char* line_to_add = generate_immediate_line(number);
+			addActionItem(assemblerManager, "", assemblerManager->IC, line_to_add);
+			break;
+		}
+		case Direct: {
+			addActionItem(assemblerManager, "", assemblerManager->IC, line[location_of_current_operand]);
+			break;
+		}
+		default: {
+			if (!reg_dest_was_handled) { // combined row was handled before
+				int dest_reg_num = addressing_type_dest == DirectRegister ? line[location_of_current_operand][1] - '0' : line[location_of_current_operand][2] - '0';
+				char* line_to_add = generate_single_register_line(dest_reg_num, false); // pass the reg number without * sign
+				addActionItem(assemblerManager, "", assemblerManager->IC, line_to_add);
+			}
+		}
+			   break;
+		}
 	}
 }
 
@@ -151,7 +176,7 @@ void addDataItem(AssemblerManager* manager, int location, const char* value) {
 	manager->dataItemCount++;
 }
 
-void addActionItem(AssemblerManager* manager, int location, const char* value) {
+void addActionItem(AssemblerManager* manager, char* metadata, int location, const char* value) {
 	manager->actionItems = (Item*)realloc(manager->actionItems, (manager->actionItemCount + 1) * sizeof(Item));
 	if (manager->actionItems == NULL) {
 		perror("Failed to add action item");
@@ -160,25 +185,35 @@ void addActionItem(AssemblerManager* manager, int location, const char* value) {
 	manager->actionItems[manager->actionItemCount].location = location;
 	strncpy(manager->actionItems[manager->actionItemCount].value, value, 15);
 	manager->actionItems[manager->actionItemCount].value[15] = '\0';
+	manager->actionItems[manager->actionItemCount].metadata = metadata;
 	manager->actionItemCount++;
 	manager->IC++;
 
 }
 
-void printItems(const Item* items, size_t itemCount) {
-	printf("| Location | Value           |\n");
-	printf("|----------|-----------------|\n");
-	for (size_t i = 0; i < itemCount; ++i) {
-		printf("| %8d | %-15s |\n", items[i].location, items[i].value);
+void printItems(const Item* items, size_t itemCount, bool includeMetadata) {
+	if (includeMetadata) {
+		printf("| Location | Value           | Metadata       |\n");
+		printf("|----------|-----------------|----------------|\n");
+		for (size_t i = 0; i < itemCount; ++i) {
+			printf("| %8d | %-15s | %-14s |\n", items[i].location, items[i].metadata ? items[i].metadata : "", items[i].value);
+		}
+	}
+	else {
+		printf("| Location | Value           |\n");
+		printf("|----------|-----------------|\n");
+		for (size_t i = 0; i < itemCount; ++i) {
+			printf("| %8d | %-15s |\n", items[i].location, items[i].value);
+		}
 	}
 }
 
 void printDataItems(const AssemblerManager* manager) {
 	printf("DataItems\n");
-	printItems(manager->dataItems, manager->dataItemCount);
+	printItems(manager->dataItems, manager->dataItemCount, false);
 }
 
 void printActionItems(const AssemblerManager* manager) {
 	printf("ActionItems\n");
-	printItems(manager->actionItems, manager->actionItemCount);
+	printItems(manager->actionItems, manager->actionItemCount, true);
 }

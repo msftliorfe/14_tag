@@ -3,7 +3,7 @@
 #include <stdbool.h> // Ensure this is included for bool
 
 // Array of valid operands
-static const char* valid_regiters[] = { "r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7","*r0", "*r1", "*r2", "*r3", "*r4", "*r5", "*r6", "*r7" };
+static const char* valid_regiters[] = { "r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7" };
 static const char* valid_regiters_2[] = { "*r0", "*r1", "*r2", "*r3", "*r4", "*r5", "*r6", "*r7" };
 static const size_t num_registers = sizeof(valid_regiters) / sizeof(valid_regiters[0]);
 
@@ -47,7 +47,7 @@ AddressingType get_addressing_type(const char* operand) {
 	else if (is_valid_regiter_2(operand)) {
 		return IndirectRegister;
 	}
-	else if (strcmp(operand[0], "#") == 0) {
+	else if (operand[0] == '#') {
 		return Immediate;
 	}
 	return Direct;
