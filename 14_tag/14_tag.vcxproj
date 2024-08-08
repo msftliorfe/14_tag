@@ -148,6 +148,7 @@
     <ClInclude Include="actions.h" />
     <ClInclude Include="assembler_manager.h" />
     <ClInclude Include="data_manager.h" />
+    <ClInclude Include="first_line_builder.h" />
     <ClInclude Include="symbols_manager.h" />
     <ClInclude Include="macro_manager.h" />
     <ClInclude Include="number_handler.h" />

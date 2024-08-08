@@ -5,7 +5,7 @@
 // Define a struct to hold the action details
 typedef struct {
 	const char* action_name;
-	const char* action_code;
+	const int action_code;
 	const char* source_operands;
 	const char* destination_operands;
 } Action;

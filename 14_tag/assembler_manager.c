@@ -3,7 +3,7 @@
 #include "file_manager.h"
 #include "actions.h"
 #include "data_manager.h"
-
+#include "first_line_builder.h"
 // Function to create and initialize an AssemblerManager
 AssemblerManager* createAssemblerManager() {
 	AssemblerManager* manager = (AssemblerManager*)malloc(sizeof(AssemblerManager));
@@ -58,6 +58,8 @@ void first_scan(FileManager* fileManager, AssemblerManager* assemblerManager, Sy
 void processActionLine(char** line, AssemblerManager* assemblerManager) {
 	// Example processing, needs actual implementation
 	//addActionItem(assemblerManager, assemblerManager->IC, *line);
+	char* first_line = process_first_line(line);
+	addActionItem(assemblerManager, assemblerManager->IC, first_line);
 	assemblerManager->IC++;
 }
 
@@ -110,5 +112,6 @@ void printDataItems(const AssemblerManager* manager) {
 }
 
 void printActionItems(const AssemblerManager* manager) {
+	printf("ActionItems\n");
 	printItems(manager->actionItems, manager->actionItemCount);
 }

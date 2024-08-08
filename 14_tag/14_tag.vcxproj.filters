@@ -86,5 +86,8 @@
     <ClInclude Include="data_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="first_line_builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

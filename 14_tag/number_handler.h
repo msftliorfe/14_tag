@@ -17,4 +17,6 @@ char* intTo4BitString(int number);
 
 char* int_to_15bit_twos_complement(int number);
 
+int calc_array_length(char** array);
+
 #endif // NUMBER_HANDLER_H

@@ -86,3 +86,8 @@ char* generate_combined_register_line(int a_register_number, int b_register_numb
 
 	return res;
 }
+
+//char** process_register_line(const char** line) {
+//	int array_length = calc_array_length(line);
+//
+//}

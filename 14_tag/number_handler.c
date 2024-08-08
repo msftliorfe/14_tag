@@ -97,3 +97,11 @@ char* int_to_15bit_twos_complement(int number) {
 	return result;
 }
 
+int calc_array_length(char** array) {
+	int arraySize = 0;
+	while (array[arraySize] != NULL) {
+		arraySize++;
+	}
+	return array;
+}
+
