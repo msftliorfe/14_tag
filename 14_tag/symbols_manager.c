@@ -219,4 +219,12 @@ bool isReferencePattern(const char* word) {
 	return strcmp(word, ".extern") == 0 || strcmp(word, ".entry") == 0;
 }
 
+void updateDataSymbolsLocation(const SymbolsManager* manager, int steps) {
+	if (manager == NULL || manager->array == NULL) {
+		return;
+	}
+	for (size_t i = 0; i < manager->used; ++i) {
+		manager->array[i].symbol_location += (100 + (manager->array[i].is_data ? steps : 0));
+	}
+}
 

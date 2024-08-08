@@ -33,5 +33,7 @@ void addDataItem(AssemblerManager* manager, int location, const char* value);
 void addActionItem(AssemblerManager* manager, char* metadata, int location, const char* value);
 void printDataItems(const AssemblerManager* manager);
 void printActionItems(const AssemblerManager* manager);
+void updateLocationDataSymbols(const SymbolsManager* symbolsManager, const AssemblerManager* manager);
+//process_post_macro(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager);
 
 #endif // ASSEMBLER_MANAGER_H

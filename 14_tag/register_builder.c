@@ -20,6 +20,8 @@ char* register_are() {
  */
 char* generate_single_register_line(int register_number, bool is_source) {
 	char* register_number_string = intToThreeBitBinary(register_number);
+	char* staticString = register_are();
+
 	if (!register_number_string) {
 		return NULL; // Memory allocation failed or invalid input
 	}
@@ -36,12 +38,13 @@ char* generate_single_register_line(int register_number, bool is_source) {
 	if (is_source) {
 		strcpy(res, "0000000");
 		strcat(res, register_number_string);
-		strcat(res, "00000");
+		strcat(res, "00");
+		strcat(res, staticString);
 	}
 	else {
 		strcpy(res, "000000000");
 		strcat(res, register_number_string);
-		strcat(res, "000");
+		strcat(res, staticString);
 	}
 
 	// Free the allocated memory for the register number string
@@ -59,6 +62,7 @@ char* generate_single_register_line(int register_number, bool is_source) {
 char* generate_combined_register_line(int a_register_number, int b_register_number) {
 	char* a_register_number_string = intToThreeBitBinary(a_register_number);
 	char* b_register_number_string = intToThreeBitBinary(b_register_number);
+	char* staticString = register_are();
 
 	if (!a_register_number_string || !b_register_number_string) {
 		free(a_register_number_string);
@@ -78,7 +82,7 @@ char* generate_combined_register_line(int a_register_number, int b_register_numb
 	strcpy(res, "000000");
 	strcat(res, a_register_number_string);
 	strcat(res, b_register_number_string);
-	strcat(res, "000");
+	strcat(res, staticString);
 
 	// Free the allocated memory for the register number strings
 	free(a_register_number_string);

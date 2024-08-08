@@ -32,6 +32,10 @@ void destroyAssemblerManager(AssemblerManager* manager) {
 	free(manager);
 }
 
+//process_post_macro(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager) {
+//	first_scan(fileManager, assemblerManager, symbolsManager);
+//}
+
 void first_scan(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager) {
 	for (size_t i = 0; i < fileManager->row_count; ++i) {
 		char** line = fileManager->post_macro[i];
@@ -61,8 +65,6 @@ void first_scan(FileManager* fileManager, AssemblerManager* assemblerManager, Sy
 }
 
 void processActionLine(char** line, AssemblerManager* assemblerManager) {
-	// Example processing, needs actual implementation
-	//addActionItem(assemblerManager, assemblerManager->IC, *line);
 	bool reg_dest_was_handled = false;
 	char* first_line = process_first_line(line);
 	addActionItem(assemblerManager, line[0], assemblerManager->IC, first_line);
@@ -87,20 +89,6 @@ void processActionLine(char** line, AssemblerManager* assemblerManager) {
 				else {//DirectRegister or IndirectRegister in source and there is a dest but not DirectRegister or IndirectRegister in dest
 					char* line_to_add = generate_single_register_line(source_reg_num, true); // pass the reg number without * sign
 					addActionItem(assemblerManager, "", assemblerManager->IC, line_to_add);
-					//switch (addressing_type_dest) // there is dest so check the dest addressing type
-					//{
-					//case Immediate: {
-					//	int number = atoi(line[1] + 1);
-					//	char* line_to_add = generate_immediate_line(number);
-					//	addActionItem(assemblerManager, "", assemblerManager->IC, line_to_add);
-					//	break;
-					//}
-					//case Direct: {
-					//	addActionItem(assemblerManager, "", assemblerManager->IC, line[2]);
-					//	break;
-					//}
-
-					//}
 				}
 			}
 			else { // DirectRegister or IndirectRegister in source but no dest operands at all
@@ -182,7 +170,7 @@ void addActionItem(AssemblerManager* manager, char* metadata, int location, cons
 		perror("Failed to add action item");
 		exit(EXIT_FAILURE);
 	}
-	manager->actionItems[manager->actionItemCount].location = location;
+	manager->actionItems[manager->actionItemCount].location = 100 + location;
 	strncpy(manager->actionItems[manager->actionItemCount].value, value, 15);
 	manager->actionItems[manager->actionItemCount].value[15] = '\0';
 	manager->actionItems[manager->actionItemCount].metadata = metadata;
@@ -193,7 +181,7 @@ void addActionItem(AssemblerManager* manager, char* metadata, int location, cons
 
 void printItems(const Item* items, size_t itemCount, bool includeMetadata) {
 	if (includeMetadata) {
-		printf("| Location | Value           | Metadata       |\n");
+		printf("| Location | Metadata        | Value       |\n");
 		printf("|----------|-----------------|----------------|\n");
 		for (size_t i = 0; i < itemCount; ++i) {
 			printf("| %8d | %-15s | %-14s |\n", items[i].location, items[i].metadata ? items[i].metadata : "", items[i].value);
@@ -216,4 +204,8 @@ void printDataItems(const AssemblerManager* manager) {
 void printActionItems(const AssemblerManager* manager) {
 	printf("ActionItems\n");
 	printItems(manager->actionItems, manager->actionItemCount, true);
+}
+
+void updateLocationDataSymbols(const SymbolsManager* symbolsManager, const AssemblerManager* manager) {
+	updateDataSymbolsLocation(symbolsManager,  manager->IC);
 }

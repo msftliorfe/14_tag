@@ -55,4 +55,5 @@ bool isDataPattern(const char* word);
 
 bool isReferencePattern(const char* word);
 
+void updateDataSymbolsLocation(const SymbolsManager* manager, int steps);
 #endif // SYMBOLS_HANDLER_H
