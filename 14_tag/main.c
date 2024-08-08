@@ -130,11 +130,14 @@ int main(int argc, char** argv) {
 	AssemblerManager* assemblerManager = createAssemblerManager();
 
 	SymbolsManager* symbolsManager = createSymbolsManager();
-	generat_symbols_table(symbolsManager, &fileManager, assemblerManager);
+	//generat_symbols_table(symbolsManager, &fileManager, assemblerManager);
+	first_scan(&fileManager, assemblerManager, symbolsManager);
+
+
 	printSymbols(symbolsManager);
 	printEnt(symbolsManager);
 	printExt(symbolsManager);
-
+	printDataItems(assemblerManager);
 
 	free_file_manager(&fileManager);
 

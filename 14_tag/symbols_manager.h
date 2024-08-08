@@ -45,8 +45,14 @@ void addExtEnt(SymbolsManager* manager, const char* value, bool is_ext);
 void updateSymbolsTable(SymbolsManager* manager, char** line, int location);
 
 // Function to check if an action exists
-bool action_exists(const char* action_name);
 void printExt(const SymbolsManager* manager);
 void printEnt(const SymbolsManager* manager);
+
+bool isSymbolPattern(const char* action_name);
+
+
+bool isDataPattern(const char* word);
+
+bool isReferencePattern(const char* word);
 
 #endif // SYMBOLS_HANDLER_H

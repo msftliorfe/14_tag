@@ -54,6 +54,9 @@
     <ClCompile Include="assembler_manager.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="data_manager.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actions.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="assembler_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

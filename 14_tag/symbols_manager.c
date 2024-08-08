@@ -166,7 +166,7 @@ void updateSymbolsTable(SymbolsManager* symbolsManager, char** line, int locatio
 	}
 	else {
 		size_t len = strlen(line[0]);
-		if (line[0][len - 1] == ':') {
+		if (isSymbolPattern(line[0])) {
 			char* symbol_name = strtrimlast(line[0]);
 			if (symbol_name == NULL) {
 				perror("Failed to duplicate symbol_name");
@@ -205,6 +205,18 @@ void printEnt(const SymbolsManager* manager) {
 	for (i = 0; i < manager->ent_used; i++) {
 		printf("| %-20s |\n", manager->ent[i]);
 	}
+}
+
+bool isSymbolPattern(const char* word) {
+	return word[(strlen(word) - 1)] == ':';
+}
+
+bool isDataPattern(const char* word) {
+	return strcmp(word, ".data") == 0 || strcmp(word, ".string") == 0;
+}
+
+bool isReferencePattern(const char* word) {
+	return strcmp(word, ".extern") == 0 || strcmp(word, ".entry") == 0;
 }
 
 
