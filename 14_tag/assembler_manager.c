@@ -68,8 +68,8 @@ void processDataLine(char** line, AssemblerManager* assemblerManager) {
 	while (data_lines[count] != NULL) {
 		addDataItem(assemblerManager, assemblerManager->DC, data_lines[count]);
 		count++;
+		assemblerManager->DC++;
 	}
-	assemblerManager->DC += count;
 }
 
 void addDataItem(AssemblerManager* manager, int location, const char* value) {
