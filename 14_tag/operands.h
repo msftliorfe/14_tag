@@ -4,6 +4,6 @@
 #include <stdbool.h>
 
 // Function declaration
-bool is_valid_operand(const char* operand);
+bool is_valid_regiter(const char* operand);
 
 #endif // OPERANDS_H

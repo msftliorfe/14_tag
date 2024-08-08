@@ -31,7 +31,7 @@ char* generate_operand_code(const char* operand) {
 			strcpy(code, "0100");
 			break;
 		default:
-			if (is_valid_operand(operand)) {
+			if (is_valid_regiter(operand)) {
 				strcpy(code, "1000");
 			}
 			else {
