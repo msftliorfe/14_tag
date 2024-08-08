@@ -142,3 +142,22 @@ char* remove_first_last(const char* str) {
 
 	return new_str;
 }
+
+char* clone_string(const char* input) {
+	if (input == NULL) {
+		return NULL;
+	}
+
+	// Allocate memory for the cloned string
+	char* clone = (char*)malloc(strlen(input) + 1); // +1 for the null terminator
+	if (clone == NULL) {
+		// Handle memory allocation failure
+		return NULL;
+	}
+
+	// Copy the string
+	strcpy(clone, input);
+
+	return clone;
+}
+

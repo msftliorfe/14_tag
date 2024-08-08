@@ -11,17 +11,17 @@ Action actions[] = {
 	{"add",2, "0,1,2,3", "1,2,3"},
 	{"sub",3, "0,1,2,3", "1,2,3"},
 	{"lea",4, "1", "1,2,3"},
-	{"clr",5, "no source operand", "1,2,3"},
-	{"not",6, "no source operand", "1,2,3"},
-	{"inc",7, "no source operand", "1,2,3"},
-	{"dec",8, "no source operand", "1,2,3"},
-	{"jmp",9, "no source operand", "1,2,3"},
-	{"bne",10, "no source operand", "1,2"},
-	{"red",11, "no source operand", "1,2"},
-	{"prn",12, "no source operand", "1,2,3"},
-	{"jsr",13, "no source operand", "0,1,2,3"},
-	{"rts",14, "no source operand", "1,2"},
-	{"stop",15, "no source operand", "no destination operand"}
+	{"clr",5, "-1", "1,2,3"},
+	{"not",6, "-1", "1,2,3"},
+	{"inc",7, "-1", "1,2,3"},
+	{"dec",8, "-1", "1,2,3"},
+	{"jmp",9, "-1", "1,2,3"},
+	{"bne",10, "-1", "1,2"},
+	{"red",11, "-1", "1,2"},
+	{"prn",12, "-1", "1,2,3"},
+	{"jsr",13, "-1", "0,1,2,3"},
+	{"rts",14, "-1", "1,2"},
+	{"stop",15, "-1", "-1"}
 };
 
 // Calculate the number of actions

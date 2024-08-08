@@ -29,16 +29,16 @@ bool is_valid_regiter_2(const char* operand) {
 	}
 	return false;
 }
-Operand_Type get_operand_type(const char* operand) {
-	if (is_valid_regiter(operand)) {
-		return Register;
-	}
-	else if (strcmp(operand[0], "#") == 0) {
-
-		return Number;
-	}
-	return Symbol;
-}
+//Operand_Type get_operand_type(const char* operand) {
+//	if (is_valid_regiter(operand)) {
+//		return Register;
+//	}
+//	else if (strcmp(operand[0], "#") == 0) {
+//
+//		return Number;
+//	}
+//	return Symbol;
+//}
 
 AddressingType get_addressing_type(const char* operand) {
 	if (is_valid_regiter(operand)) {
