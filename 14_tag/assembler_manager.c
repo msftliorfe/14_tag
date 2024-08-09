@@ -165,6 +165,7 @@ void addDataItem(AssemblerManager* manager, int location, const char* value) {
 		exit(EXIT_FAILURE);
 	}
 	manager->dataItems[manager->dataItemCount].location = location;
+	manager->dataItems[manager->dataItemCount].octal = bitStringToOctal(value);
 	strncpy(manager->dataItems[manager->dataItemCount].value, value, 15);
 	manager->dataItems[manager->dataItemCount].value[15] = '\0';
 	manager->dataItemCount++;
@@ -177,6 +178,7 @@ void addActionItem(AssemblerManager* manager, char* metadata, int location, cons
 		exit(EXIT_FAILURE);
 	}
 	manager->actionItems[manager->actionItemCount].location = 100 + location;
+	manager->actionItems[manager->actionItemCount].octal = bitStringToOctal(value);
 	strncpy(manager->actionItems[manager->actionItemCount].value, value, 15);
 	manager->actionItems[manager->actionItemCount].value[15] = '\0';
 	manager->actionItems[manager->actionItemCount].metadata = metadata;
@@ -187,20 +189,21 @@ void addActionItem(AssemblerManager* manager, char* metadata, int location, cons
 
 void printItems(const Item* items, size_t itemCount, bool includeMetadata) {
 	if (includeMetadata) {
-		printf("| Location | Metadata        | Value       |\n");
-		printf("|----------|-----------------|----------------|\n");
+		printf("| Location | Value | Metadata        | Octal       |\n");
+		printf("|----------|-------|-----------------|----------------|\n");
 		for (size_t i = 0; i < itemCount; ++i) {
-			printf("| %8d | %-15s | %-14s |\n", items[i].location, items[i].metadata ? items[i].metadata : "", items[i].value);
+			printf("| %8d | %-15s | %-14s | %5d |\n", items[i].location, items[i].value, items[i].metadata ? items[i].metadata : "", items[i].octal);
 		}
 	}
 	else {
-		printf("| Location | Value           |\n");
-		printf("|----------|-----------------|\n");
+		printf("| Location | Value | Octal           |\n");
+		printf("|----------|-------|-----------------|\n");
 		for (size_t i = 0; i < itemCount; ++i) {
-			printf("| %8d | %-15s |\n", items[i].location, items[i].value);
+			printf("| %8d | %-15s | %5d |\n", items[i].location, items[i].value, items[i].octal);
 		}
 	}
 }
+
 
 void printDataItems(const AssemblerManager* manager) {
 	printf("\n\n");
@@ -241,6 +244,7 @@ void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, S
 				// Copy the new string into the value array
 				strncpy(actionItem->value, location_str, sizeof(actionItem->value) - 1);
 				actionItem->value[sizeof(actionItem->value) - 1] = '\0';  // Ensure null-termination
+				actionItem->octal = bitStringToOctal(location_str);
 
 				free(location_str);
 			}
@@ -249,6 +253,7 @@ void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, S
 				char* location_str = generate_direct_line(symbol_location);
 				// Copy the new string into the value array
 				strncpy(actionItem->value, location_str, sizeof(actionItem->value) - 1);
+				actionItem->octal = bitStringToOctal(location_str);
 
 				free(location_str);
 
