@@ -226,54 +226,42 @@ void updateDataItemsLocation(const AssemblerManager* manager) {
 }
 
 void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager) {
+
+
 	for (size_t i = 0; i < assemblerManager->actionItemCount; ++i) {
-		Item* item = &assemblerManager->actionItems[i];
+		Item* actionItem = &assemblerManager->actionItems[i];
 
-		if (strcmp(item->metadata, "LABEL") == 0) {
-			// Step 1: Check if the value is in ext or ent
+		if (strcmp(actionItem->metadata, "LABEL") == 0) {
+			actionItem->metadata = strdup(actionItem->value);  // Update metadata to be the value
 			bool found_in_ext = false;
-			bool found_in_ent = false;
+			if (isRefExtSymbolExists(symbolsManager, actionItem->value)) {// this is an ext label
+				char* location_str = int_to_15bit_twos_complement(1);
+				addReferenceSymbol(symbolsManager, actionItem->value, actionItem->location, true); // add new item to ref_symbols
+				// Copy the new string into the value array
+				strncpy(actionItem->value, location_str, sizeof(actionItem->value) - 1);
+				actionItem->value[sizeof(actionItem->value) - 1] = '\0';  // Ensure null-termination
 
-			// Check in ext
-			for (size_t j = 0; j < symbolsManager->ext_used; ++j) {
-				if (strcmp(item->value, symbolsManager->ext[j]) == 0) {
-					found_in_ext = true;
-					break;
-				}
+				free(location_str);
 			}
+			else { // this is ent symbol or just symbol - find its location in symbols table
+				int symbol_location = getSymbolLocation(symbolsManager, actionItem->value);
+				char* location_str = int_to_15bit_twos_complement(symbol_location);
+				//if (isRefEntSymbolExists(symbolsManager, actionItem->value)) {
+				//	addReferenceSymbol(symbolsManager, actionItem->value, symbol_location, false); // add new item to ref_symbols
+				//}
+				// Copy the new string into the value array
+				strncpy(actionItem->value, location_str, sizeof(actionItem->value) - 1);
 
-			// Check in ent
-			if (!found_in_ext) {
-				for (size_t j = 0; j < symbolsManager->ent_used; ++j) {
-					if (strcmp(item->value, symbolsManager->ent[j]) == 0) {
-						found_in_ent = true;
-						break;
-					}
-				}
+				free(location_str);
+
 			}
-
-			// Call addReferenceSymbol if found
-			if (found_in_ext || found_in_ent) {
-				addReferenceSymbol(symbolsManager, item->value, item->location, found_in_ext);
-			}
-
-			// Step 2: Update metadata and value
-			//free(item->metadata);  // Free the old metadata if dynamically allocated
-			item->metadata = strdup(item->value);  // Update metadata to be the value
-
-			int symbol_location = getSymbolLocation(symbolsManager, item->value);
-			char* location_str = int_to_15bit_twos_complement(symbol_location);
-
-			// Copy the new string into the value array
-			strncpy(item->value, location_str, sizeof(item->value) - 1);
-			item->value[sizeof(item->value) - 1] = '\0';  // Ensure null-termination
-
-			// Free the dynamically allocated string (if int_to_15bit_twos_complement dynamically allocates memory)
-			free(location_str);
 		}
 	}
+	for (size_t i = 0; i < symbolsManager->ent_used; ++i) {// handle entry symbols
+		char* entlItem = symbolsManager->ent[i];
+		int symbol_location = getSymbolLocation(symbolsManager, entlItem);
+		char* location_str = int_to_15bit_twos_complement(symbol_location);
+		addReferenceSymbol(symbolsManager, entlItem, symbol_location, false); // add new item to ref_symbols
+		free(location_str);
+	}
 }
-
-
-
-

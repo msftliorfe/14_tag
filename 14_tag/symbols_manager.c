@@ -292,4 +292,32 @@ void printReferenceSymbols(const SymbolsManager* manager) {
 	}
 }
 
+bool isRefExtSymbolExists(const SymbolsManager* manager, const char* symbol_name) {
+	if (manager == NULL || symbol_name == NULL) {
+		return false; // Return 0 if the manager or symbol_name is NULL
+	}
+
+	for (size_t i = 0; i < manager->ext_used; i++) {
+		if (strcmp(manager->ext[i], symbol_name) == 0) {
+			return true; // Return true if the symbol_name exists in the ext array
+		}
+	}
+
+	return false; // Return false if the symbol_name does not exist in the ext array
+}
+bool isRefEntSymbolExists(const SymbolsManager* manager, const char* symbol_name) {
+	if (manager == NULL || symbol_name == NULL) {
+		return false; // Return 0 if the manager or symbol_name is NULL
+	}
+
+	for (size_t i = 0; i < manager->ent_used; i++) {
+		if (strcmp(manager->ent[i], symbol_name) == 0) {
+			return true; // Return true if the symbol_name exists in the ext array
+		}
+	}
+
+	return false; // Return false if the symbol_name does not exist in the ext array
+}
+
+
 

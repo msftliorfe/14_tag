@@ -57,6 +57,8 @@ void printSymbols(const SymbolsManager* manager);
 
 // Function to get the location of a symbol by its name
 int getSymbolLocation(const SymbolsManager* manager, const char* symbol_name);
+bool isRefExtSymbolExists(const SymbolsManager* manager, const char* symbol_name);
+bool isRefEntSymbolExists(const SymbolsManager* manager, const char* symbol_name);
 
 // Function to destroy a SymbolsManager instance and free resources
 void destroySymbolsManager(SymbolsManager* manager);
