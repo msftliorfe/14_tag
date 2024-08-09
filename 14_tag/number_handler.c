@@ -104,4 +104,23 @@ int calc_array_length(char** array) {
 	}
 	return array;
 }
+int bitStringToOctal(const char* bitString) {
+	int decimal = 0;
 
+	// Convert the bit string to a decimal number
+	for (int i = 0; i < 15; i++) {
+		if (bitString[i] == '1') {
+			decimal += pow(2, 14 - i);
+		}
+	}
+
+	// Convert the decimal number to octal
+	int octal = 0, place = 1;
+	while (decimal > 0) {
+		octal += (decimal % 8) * place;
+		decimal /= 8;
+		place *= 10;
+	}
+
+	return octal;
+}

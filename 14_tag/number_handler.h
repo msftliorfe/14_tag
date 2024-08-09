@@ -19,4 +19,5 @@ char* int_to_15bit_twos_complement(int number);
 
 int calc_array_length(char** array);
 
+int bitStringToOctal(const char* bitString) {
 #endif // NUMBER_HANDLER_H
