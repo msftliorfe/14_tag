@@ -14,6 +14,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include "direct_builder.h"
 // Function to create and initialize an AssemblerManager
 AssemblerManager* createAssemblerManager() {
 	AssemblerManager* manager = (AssemblerManager*)malloc(sizeof(AssemblerManager));
@@ -245,10 +246,7 @@ void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, S
 			}
 			else { // this is ent symbol or just symbol - find its location in symbols table
 				int symbol_location = getSymbolLocation(symbolsManager, actionItem->value);
-				char* location_str = int_to_15bit_twos_complement(symbol_location);
-				//if (isRefEntSymbolExists(symbolsManager, actionItem->value)) {
-				//	addReferenceSymbol(symbolsManager, actionItem->value, symbol_location, false); // add new item to ref_symbols
-				//}
+				char* location_str = generate_direct_line(symbol_location);
 				// Copy the new string into the value array
 				strncpy(actionItem->value, location_str, sizeof(actionItem->value) - 1);
 
@@ -260,7 +258,7 @@ void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, S
 	for (size_t i = 0; i < symbolsManager->ent_used; ++i) {// handle entry symbols
 		char* entlItem = symbolsManager->ent[i];
 		int symbol_location = getSymbolLocation(symbolsManager, entlItem);
-		char* location_str = int_to_15bit_twos_complement(symbol_location);
+		char* location_str = generate_direct_line(symbol_location);
 		addReferenceSymbol(symbolsManager, entlItem, symbol_location, false); // add new item to ref_symbols
 		free(location_str);
 	}
