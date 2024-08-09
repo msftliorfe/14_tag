@@ -69,6 +69,7 @@ void addSymbol(SymbolsManager* manager, const char* symbol_name, int symbol_loca
 }
 
 void printSymbols(const SymbolsManager* manager) {
+	printf("\n\n\n\n");
 	printf("manager->Symbols\n");
 	printf("| %-20s | %-10s | %-5s |\n", "Symbol Name", "Location", "Data");
 	printf("|----------------------|------------|-------|\n");
@@ -186,6 +187,7 @@ void updateSymbolsTable(SymbolsManager* symbolsManager, char** line, int locatio
 }
 
 void printExt(const SymbolsManager* manager) {
+	printf("\n\n\n\n");
 	printf("manager->ext\n");
 	size_t i;
 	printf("| %-20s |\n", "Ext Name");
@@ -197,6 +199,7 @@ void printExt(const SymbolsManager* manager) {
 }
 
 void printEnt(const SymbolsManager* manager) {
+	printf("\n\n\n\n");
 	printf("manager->ent\n");
 	size_t i;
 	printf("| %-20s |\n", "Ent Name");

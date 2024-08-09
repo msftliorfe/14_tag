@@ -133,10 +133,11 @@ int main(int argc, char** argv) {
 	//generat_symbols_table(symbolsManager, &fileManager, assemblerManager);
 	first_scan(&fileManager, assemblerManager, symbolsManager);
 	updateLocationDataSymbols(symbolsManager, assemblerManager);
-		//process_post_macro(&fileManager, assemblerManager, symbolsManager);
+	updateDataItemsLocation(assemblerManager);
+	//process_post_macro(&fileManager, assemblerManager, symbolsManager);
 
 
-		printSymbols(symbolsManager);
+	printSymbols(symbolsManager);
 	printEnt(symbolsManager);
 	printExt(symbolsManager);
 	printDataItems(assemblerManager);

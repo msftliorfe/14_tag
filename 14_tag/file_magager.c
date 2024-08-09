@@ -89,6 +89,7 @@ void input_process(FileManager* fileManager, MacroManager* macroManager, const c
 }
 
 void print_post_macro(FileManager* manager) {
+	printf("post_macro\n");
 	if (manager->row_count == 0) {
 		printf("No data to display.\n");
 		return;

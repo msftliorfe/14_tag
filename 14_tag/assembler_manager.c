@@ -197,15 +197,27 @@ void printItems(const Item* items, size_t itemCount, bool includeMetadata) {
 }
 
 void printDataItems(const AssemblerManager* manager) {
+	printf("\n\n\n\n");
+
 	printf("DataItems\n");
 	printItems(manager->dataItems, manager->dataItemCount, false);
 }
 
 void printActionItems(const AssemblerManager* manager) {
+	printf("\n\n\n\n");
+
 	printf("ActionItems\n");
 	printItems(manager->actionItems, manager->actionItemCount, true);
 }
 
 void updateLocationDataSymbols(const SymbolsManager* symbolsManager, const AssemblerManager* manager) {
-	updateDataSymbolsLocation(symbolsManager,  manager->IC);
+	updateDataSymbolsLocation(symbolsManager, manager->IC);
 }
+
+void updateDataItemsLocation(const AssemblerManager* manager) {
+	for (size_t i = 0; i < manager->dataItemCount; ++i) {
+		manager->dataItems[i].location += 100 + manager->IC;
+	}
+}
+
+
