@@ -1,5 +1,5 @@
-#ifndef NUMBER_HANDLER_H
-#define NUMBER_HANDLER_H
+#ifndef IMMEDIATE_BUILDER_H
+#define IMMEDIATE_BUILDER_H
 
 // Function prototypes
 char* immediate_are(void);

@@ -3,9 +3,9 @@
 #include <string.h>
 #include "data_manager.h"
 #include "strings_manager.h";
+#include "number_handler.h"
 /* Assume these existing functions are defined elsewhere */
-extern char* int_to_15bit_twos_complement(int number);
-extern char* letter_to_15bit_ascii(char letter);
+
 
 char** handle_numbers(char** number_strings) {
 	char** result;

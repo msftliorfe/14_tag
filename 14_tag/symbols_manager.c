@@ -11,6 +11,8 @@ SymbolsManager* createSymbolsManager() {
 		perror("Failed to create SymbolsManager");
 		exit(EXIT_FAILURE);
 	}
+
+	// Initialize Symbols array
 	manager->array = (Symbols*)malloc(5 * sizeof(Symbols)); // Initial size of 5
 	if (manager->array == NULL) {
 		perror("Failed to allocate memory for Symbols array");
@@ -20,6 +22,7 @@ SymbolsManager* createSymbolsManager() {
 	manager->used = 0;
 	manager->size = 5;
 
+	// Initialize ext array
 	manager->ext = (char**)malloc(5 * sizeof(char*)); // Initial size of 5
 	if (manager->ext == NULL) {
 		perror("Failed to allocate memory for ext array");
@@ -30,6 +33,7 @@ SymbolsManager* createSymbolsManager() {
 	manager->ext_used = 0;
 	manager->ext_size = 5;
 
+	// Initialize ent array
 	manager->ent = (char**)malloc(5 * sizeof(char*)); // Initial size of 5
 	if (manager->ent == NULL) {
 		perror("Failed to allocate memory for ent array");
@@ -41,8 +45,22 @@ SymbolsManager* createSymbolsManager() {
 	manager->ent_used = 0;
 	manager->ent_size = 5;
 
+	// Initialize ref_symbols array
+	manager->ref_symbols = (ReferenceSymbol*)malloc(5 * sizeof(ReferenceSymbol)); // Initial size of 5
+	if (manager->ref_symbols == NULL) {
+		perror("Failed to allocate memory for ref_symbols array");
+		free(manager->ent);
+		free(manager->ext);
+		free(manager->array);
+		free(manager);
+		exit(EXIT_FAILURE);
+	}
+	manager->ref_used = 0;
+	manager->ref_size = 5;
+
 	return manager;
 }
+
 
 void addSymbol(SymbolsManager* manager, const char* symbol_name, int symbol_location, bool is_data) {
 	if (manager->used == manager->size) {
@@ -69,7 +87,7 @@ void addSymbol(SymbolsManager* manager, const char* symbol_name, int symbol_loca
 }
 
 void printSymbols(const SymbolsManager* manager) {
-	printf("\n\n\n\n");
+	printf("\n\n");
 	printf("manager->Symbols\n");
 	printf("| %-20s | %-10s | %-5s |\n", "Symbol Name", "Location", "Data");
 	printf("|----------------------|------------|-------|\n");
@@ -187,7 +205,7 @@ void updateSymbolsTable(SymbolsManager* symbolsManager, char** line, int locatio
 }
 
 void printExt(const SymbolsManager* manager) {
-	printf("\n\n\n\n");
+	printf("\n\n");
 	printf("manager->ext\n");
 	size_t i;
 	printf("| %-20s |\n", "Ext Name");
@@ -199,7 +217,7 @@ void printExt(const SymbolsManager* manager) {
 }
 
 void printEnt(const SymbolsManager* manager) {
-	printf("\n\n\n\n");
+	printf("\n\n");
 	printf("manager->ent\n");
 	size_t i;
 	printf("| %-20s |\n", "Ent Name");
@@ -264,7 +282,7 @@ void addReferenceSymbol(SymbolsManager* manager, const char* name, int location,
 
 // Adding the function to print all reference symbols
 void printReferenceSymbols(const SymbolsManager* manager) {
-	printf("\n\n\n\n");
+	printf("\n\n");
 	printf("manager->ReferenceSymbols\n");
 	printf("| %-20s | %-10s | %-5s |\n", "Name", "Location", "Type");
 	printf("|----------------------|------------|-------|\n");

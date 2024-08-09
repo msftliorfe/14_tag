@@ -142,7 +142,16 @@ int main(int argc, char** argv) {
 	printExt(symbolsManager);
 	printActionItems(assemblerManager);
 	printDataItems(assemblerManager);
-
+	second_scan(&fileManager, assemblerManager, symbolsManager);
+	printf("\n\n");
+	printf("=============");
+	printf("\n");
+	printf("after second scan");
+	printf("\n");
+	printActionItems(assemblerManager);
+	printDataItems(assemblerManager);
+	printSymbols(symbolsManager);
+	printReferenceSymbols(symbolsManager);
 
 	free_file_manager(&fileManager);
 

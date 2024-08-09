@@ -9,6 +9,11 @@
 #include <stdbool.h> // Include for the bool type
 #include "immediate_builder.h"
 #include "register_builder.h"
+#include "number_handler.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdbool.h>
 // Function to create and initialize an AssemblerManager
 AssemblerManager* createAssemblerManager() {
 	AssemblerManager* manager = (AssemblerManager*)malloc(sizeof(AssemblerManager));
@@ -197,14 +202,14 @@ void printItems(const Item* items, size_t itemCount, bool includeMetadata) {
 }
 
 void printDataItems(const AssemblerManager* manager) {
-	printf("\n\n\n\n");
+	printf("\n\n");
 
 	printf("DataItems\n");
 	printItems(manager->dataItems, manager->dataItemCount, false);
 }
 
 void printActionItems(const AssemblerManager* manager) {
-	printf("\n\n\n\n");
+	printf("\n\n");
 
 	printf("ActionItems\n");
 	printItems(manager->actionItems, manager->actionItemCount, true);
@@ -221,8 +226,54 @@ void updateDataItemsLocation(const AssemblerManager* manager) {
 }
 
 void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager) {
+	for (size_t i = 0; i < assemblerManager->actionItemCount; ++i) {
+		Item* item = &assemblerManager->actionItems[i];
 
+		if (strcmp(item->metadata, "LABEL") == 0) {
+			// Step 1: Check if the value is in ext or ent
+			bool found_in_ext = false;
+			bool found_in_ent = false;
+
+			// Check in ext
+			for (size_t j = 0; j < symbolsManager->ext_used; ++j) {
+				if (strcmp(item->value, symbolsManager->ext[j]) == 0) {
+					found_in_ext = true;
+					break;
+				}
+			}
+
+			// Check in ent
+			if (!found_in_ext) {
+				for (size_t j = 0; j < symbolsManager->ent_used; ++j) {
+					if (strcmp(item->value, symbolsManager->ent[j]) == 0) {
+						found_in_ent = true;
+						break;
+					}
+				}
+			}
+
+			// Call addReferenceSymbol if found
+			if (found_in_ext || found_in_ent) {
+				addReferenceSymbol(symbolsManager, item->value, item->location, found_in_ext);
+			}
+
+			// Step 2: Update metadata and value
+			//free(item->metadata);  // Free the old metadata if dynamically allocated
+			item->metadata = strdup(item->value);  // Update metadata to be the value
+
+			int symbol_location = getSymbolLocation(symbolsManager, item->value);
+			char* location_str = int_to_15bit_twos_complement(symbol_location);
+
+			// Copy the new string into the value array
+			strncpy(item->value, location_str, sizeof(item->value) - 1);
+			item->value[sizeof(item->value) - 1] = '\0';  // Ensure null-termination
+
+			// Free the dynamically allocated string (if int_to_15bit_twos_complement dynamically allocates memory)
+			free(location_str);
+		}
+	}
 }
+
 
 
 
