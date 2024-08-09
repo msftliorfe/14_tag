@@ -106,7 +106,7 @@ void processActionLine(char** line, AssemblerManager* assemblerManager) {
 				break;
 			}
 			case Direct: {
-				addActionItem(assemblerManager, "", assemblerManager->IC, line[1]);
+				addActionItem(assemblerManager, "LABEL", assemblerManager->IC, line[1]);
 				break;
 			}
 
@@ -125,7 +125,7 @@ void processActionLine(char** line, AssemblerManager* assemblerManager) {
 			break;
 		}
 		case Direct: {
-			addActionItem(assemblerManager, "", assemblerManager->IC, line[location_of_current_operand]);
+			addActionItem(assemblerManager, "LABEL", assemblerManager->IC, line[location_of_current_operand]);
 			break;
 		}
 		default: {
@@ -219,5 +219,10 @@ void updateDataItemsLocation(const AssemblerManager* manager) {
 		manager->dataItems[i].location += 100 + manager->IC;
 	}
 }
+
+void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager) {
+
+}
+
 
 

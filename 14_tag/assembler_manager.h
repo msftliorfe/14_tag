@@ -37,4 +37,6 @@ void updateLocationDataSymbols(const SymbolsManager* symbolsManager, const Assem
 //process_post_macro(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager);
 void updateDataItemsLocation(const AssemblerManager* manager);
 
+void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager);
+
 #endif // ASSEMBLER_MANAGER_H
