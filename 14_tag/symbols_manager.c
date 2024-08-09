@@ -231,3 +231,47 @@ void updateDataSymbolsLocation(const SymbolsManager* manager, int steps) {
 	}
 }
 
+// Adding the function to add a reference symbol
+void addReferenceSymbol(SymbolsManager* manager, const char* name, int location, bool type) {
+	if (manager->ref_used == manager->ref_size) {
+		manager->ref_size *= 2;
+		ReferenceSymbol* new_ref_symbols = (ReferenceSymbol*)realloc(manager->ref_symbols, manager->ref_size * sizeof(ReferenceSymbol));
+		if (new_ref_symbols == NULL) {
+			perror("Failed to reallocate memory for ReferenceSymbol array");
+			free(manager->ref_symbols);
+			free(manager->ent);
+			free(manager->ext);
+			free(manager->array);
+			free(manager);
+			exit(EXIT_FAILURE);
+		}
+		manager->ref_symbols = new_ref_symbols;
+	}
+	manager->ref_symbols[manager->ref_used].name = strdup(name);
+	if (manager->ref_symbols[manager->ref_used].name == NULL) {
+		perror("Failed to duplicate name");
+		free(manager->ref_symbols);
+		free(manager->ent);
+		free(manager->ext);
+		free(manager->array);
+		free(manager);
+		exit(EXIT_FAILURE);
+	}
+	manager->ref_symbols[manager->ref_used].location = location;
+	manager->ref_symbols[manager->ref_used].type = type;
+	manager->ref_used++;
+}
+
+// Adding the function to print all reference symbols
+void printReferenceSymbols(const SymbolsManager* manager) {
+	printf("\n\n\n\n");
+	printf("manager->ReferenceSymbols\n");
+	printf("| %-20s | %-10s | %-5s |\n", "Name", "Location", "Type");
+	printf("|----------------------|------------|-------|\n");
+
+	for (size_t i = 0; i < manager->ref_used; i++) {
+		printf("| %-20s | %-10d | %-5d |\n", manager->ref_symbols[i].name, manager->ref_symbols[i].location, manager->ref_symbols[i].type);
+	}
+}
+
+

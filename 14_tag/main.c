@@ -140,8 +140,9 @@ int main(int argc, char** argv) {
 	printSymbols(symbolsManager);
 	printEnt(symbolsManager);
 	printExt(symbolsManager);
-	printDataItems(assemblerManager);
 	printActionItems(assemblerManager);
+	printDataItems(assemblerManager);
+
 
 	free_file_manager(&fileManager);
 

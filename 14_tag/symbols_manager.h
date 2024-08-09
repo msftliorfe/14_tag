@@ -9,6 +9,15 @@ typedef struct {
 	bool is_data;
 } Symbols;
 
+
+// New structure for reference symbols
+typedef struct {
+	char* name;
+	int location;
+	bool type; // true for ext, false for ent
+} ReferenceSymbol;
+
+
 struct SymbolsManager {
 	Symbols* array;
 	size_t used;
@@ -19,9 +28,23 @@ struct SymbolsManager {
 	char** ent;
 	size_t ent_used;
 	size_t ent_size;
+	ReferenceSymbol* ref_symbols;
+	size_t ref_used;
+	size_t ref_size;
 };
 
 typedef struct SymbolsManager SymbolsManager;
+
+
+
+
+
+// Function to add a reference symbol to the manager
+void addReferenceSymbol(SymbolsManager* manager, const char* name, int location, bool type);
+
+// Function to print all reference symbols
+void printReferenceSymbols(const SymbolsManager* manager);
+
 
 // Function to create a SymbolsManager instance
 SymbolsManager* createSymbolsManager(void);
