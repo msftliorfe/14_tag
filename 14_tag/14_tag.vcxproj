@@ -159,6 +159,9 @@
     <ClInclude Include="file_manager.h" />
     <ClInclude Include="strings_manager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="c_input_2_file.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
