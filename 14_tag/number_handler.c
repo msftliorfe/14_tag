@@ -1,5 +1,5 @@
 #include <stdlib.h>
-
+#include <math.h>
 #include "number_handler.h"
 
 char* intTo12BitUnsignedString(unsigned int num) {
