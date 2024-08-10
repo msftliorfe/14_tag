@@ -144,7 +144,7 @@ int main(int argc, char** argv) {
 	printDataItems(assemblerManager);
 	second_scan(&fileManager, assemblerManager, symbolsManager);
 	printf("\n\n");
-	printf("=============");
+	printf("=================================");
 	printf("\n");
 	printf("after second scan");
 	printf("\n");
