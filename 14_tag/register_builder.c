@@ -27,8 +27,7 @@ char* generate_single_register_line(int register_number, bool is_source) {
 	}
 
 	// Determine the required length of the result string
-	size_t length = is_source ? 15 : 14;
-	char* res = (char*)malloc(length + 1);
+	char* res = (char*)malloc(15);
 	if (!res) {
 		free(register_number_string);
 		return NULL; // Memory allocation failed
@@ -36,9 +35,9 @@ char* generate_single_register_line(int register_number, bool is_source) {
 
 	// Initialize and concatenate the result string
 	if (is_source) {
-		strcpy(res, "0000000");
+		strcpy(res, "000000");
 		strcat(res, register_number_string);
-		strcat(res, "00");
+		strcat(res, "000");
 		strcat(res, staticString);
 	}
 	else {

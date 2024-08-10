@@ -11,7 +11,7 @@ typedef struct {
 	int location;
 	char* metadata;
 	char value[16]; // 15 bits + 1 for null terminator
-	int octal;
+	char* octal;
 } Item;
 
 // Define the AssemblerManager struct
