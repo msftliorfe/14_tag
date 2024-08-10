@@ -39,5 +39,5 @@ void updateLocationDataSymbols(const SymbolsManager* symbolsManager, const Assem
 void updateDataItemsLocation(const AssemblerManager* manager);
 
 void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager);
-
+void printObjToFile(const AssemblerManager* assemblerManager);
 #endif // ASSEMBLER_MANAGER_H

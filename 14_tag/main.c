@@ -152,7 +152,7 @@ int main(int argc, char** argv) {
 	printDataItems(assemblerManager);
 	printSymbols(symbolsManager);
 	printReferenceSymbols(symbolsManager);
-
+	printObjToFile(assemblerManager);
 	free_file_manager(&fileManager);
 
 	return 0;

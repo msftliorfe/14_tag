@@ -269,3 +269,26 @@ void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, S
 		free(location_str);
 	}
 }
+
+void printObjToFile(const AssemblerManager* assemblerManager) {
+	FILE* file = fopen("ps.obj", "w");
+	if (file == NULL) {
+		perror("Failed to open file ps.obj");
+		exit(EXIT_FAILURE);
+	}
+
+	// Print the first line: IC+1 tab_space IC+2
+	fprintf(file, "%d\t%d\n", assemblerManager->IC, assemblerManager->DC);
+
+	// Print actionItems
+	for (size_t i = 0; i < assemblerManager->actionItemCount; ++i) {
+		fprintf(file, "%d\t%s\n", assemblerManager->actionItems[i].location, assemblerManager->actionItems[i].octal);
+	}
+
+	// Print dataItems
+	for (size_t i = 0; i < assemblerManager->dataItemCount; ++i) {
+		fprintf(file, "%d\t%s\n", assemblerManager->dataItems[i].location, assemblerManager->dataItems[i].octal);
+	}
+
+	fclose(file);
+}
