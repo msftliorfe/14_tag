@@ -189,20 +189,21 @@ void addActionItem(AssemblerManager* manager, char* metadata, int location, cons
 
 void printItems(const Item* items, size_t itemCount, bool includeMetadata) {
 	if (includeMetadata) {
-		printf("| Location | Value             | Metadata    | Octal |\n");
-		printf("|----------|-------------------|-------------|-------|\n");
+		printf("| Location | Value           | Metadata    | Octal |\n");
+		printf("|----------|-----------------|-------------|-------|\n");
 		for (size_t i = 0; i < itemCount; ++i) {
-			printf("| %8d | %-15s   | %-11s | %5d |\n", items[i].location, items[i].value, items[i].metadata ? items[i].metadata : "", items[i].octal);
+			printf("| %8d | %-15s | %-11s | %5s |\n", items[i].location, items[i].value, items[i].metadata ? items[i].metadata : "", items[i].octal);
 		}
 	}
 	else {
-		printf("| Location | Value             | Octal |\n");
-		printf("|----------|-------------------|-------|\n");
+		printf("| Location | Value           | Octal |\n");
+		printf("|----------|-----------------|-------|\n");
 		for (size_t i = 0; i < itemCount; ++i) {
-			printf("| %8d | %-15s   | %5d |\n", items[i].location, items[i].value, items[i].octal);
+			printf("| %8d | %-15s | %5s |\n", items[i].location, items[i].value, items[i].octal);
 		}
 	}
 }
+
 
 
 void printDataItems(const AssemblerManager* manager) {

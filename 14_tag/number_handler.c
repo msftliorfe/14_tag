@@ -104,23 +104,44 @@ int calc_array_length(char** array) {
 	}
 	return array;
 }
-int bitStringToOctal(const char* bitString) {
-	int decimal = 0;
+char* bitStringToOctal(const char* bitString) {
+	unsigned int decimal = 0;
+	unsigned int octal = 0, place = 1;
+	char* octalString = (char*)malloc(6 * sizeof(char)); // 5 chars + 1 null terminator
+	int i, j;
+
+	if (octalString == NULL) {
+		return NULL;  // Return NULL if memory allocation fails
+	}
 
 	// Convert the bit string to a decimal number
-	for (int i = 0; i < 15; i++) {
+	for (i = 0; i < 15; i++) {
 		if (bitString[i] == '1') {
-			decimal += pow(2, 14 - i);
+			decimal += (1U << (14 - i));
 		}
 	}
 
 	// Convert the decimal number to octal
-	int octal = 0, place = 1;
 	while (decimal > 0) {
 		octal += (decimal % 8) * place;
 		decimal /= 8;
 		place *= 10;
 	}
 
-	return octal;
+	// Convert the octal number to a string
+	for (i = 4; i >= 0; i--) {
+		octalString[i] = '0' + (octal % 10);
+		octal /= 10;
+	}
+	octalString[5] = '\0';
+
+	// If octal number is less than 5 digits, pad with leading zeros
+	for (j = 0; j < 5; j++) {
+		if (octalString[j] != '0') {
+			break;
+		}
+		octalString[j] = '0';
+	}
+
+	return octalString;
 }
