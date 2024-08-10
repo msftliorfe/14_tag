@@ -16,16 +16,13 @@ int main(int argc, char** argv) {
 
 	input_process(&fileManager, &macroManager, file_path);
 
-	// Print the post_macro matrix
 	print_post_macro(&fileManager);
 	AssemblerManager* assemblerManager = createAssemblerManager();
 
 	SymbolsManager* symbolsManager = createSymbolsManager();
-	//generat_symbols_table(symbolsManager, &fileManager, assemblerManager);
 	first_scan(&fileManager, assemblerManager, symbolsManager);
 	updateLocationDataSymbols(symbolsManager, assemblerManager);
 	updateDataItemsLocation(assemblerManager);
-	//process_post_macro(&fileManager, assemblerManager, symbolsManager);
 
 
 	printSymbols(symbolsManager);
