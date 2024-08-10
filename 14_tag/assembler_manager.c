@@ -292,3 +292,44 @@ void printObjToFile(const AssemblerManager* assemblerManager) {
 
 	fclose(file);
 }
+
+void printReferenceSymbolsToFile(const SymbolsManager* manager) {
+	FILE* ent_file = NULL;
+	FILE* ext_file = NULL;
+	bool ent_has_values = false;
+	bool ext_has_values = false;
+	size_t i;
+
+	for (i = 0; i < manager->ref_used; ++i) {
+		ReferenceSymbol* ref_symbol = &manager->ref_symbols[i];
+		if (ref_symbol->type) {
+			if (!ext_has_values) {
+				ext_file = fopen("ps.ext", "w");
+				if (ext_file == NULL) {
+					perror("Failed to open file ps.ext");
+					exit(EXIT_FAILURE);
+				}
+				ext_has_values = 1;
+			}
+			fprintf(ext_file, "%s\t%d\n", ref_symbol->name, ref_symbol->location);
+		}
+		else {
+			if (!ent_has_values) {
+				ent_file = fopen("ps.ent", "w");
+				if (ent_file == NULL) {
+					perror("Failed to open file ps.ent");
+					exit(EXIT_FAILURE);
+				}
+				ent_has_values = 1;
+			}
+			fprintf(ent_file, "%s\t%d\n", ref_symbol->name, ref_symbol->location);
+		}
+	}
+
+	if (ext_file != NULL) {
+		fclose(ext_file);
+	}
+	if (ent_file != NULL) {
+		fclose(ent_file);
+	}
+}

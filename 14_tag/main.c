@@ -144,7 +144,7 @@ int main(int argc, char** argv) {
 	printDataItems(assemblerManager);
 	second_scan(&fileManager, assemblerManager, symbolsManager);
 	printf("\n\n");
-	printf("=================================");
+	printf("======================================");
 	printf("\n");
 	printf("after second scan");
 	printf("\n");
@@ -153,6 +153,7 @@ int main(int argc, char** argv) {
 	printSymbols(symbolsManager);
 	printReferenceSymbols(symbolsManager);
 	printObjToFile(assemblerManager);
+	printReferenceSymbolsToFile(symbolsManager);
 	free_file_manager(&fileManager);
 
 	return 0;
