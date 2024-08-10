@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
 	MacroManager macroManager;
 	init_macro_manager(&macroManager);
 
-	const char* file_path = "c_input_2_file.txt";
+	const char* file_path = "c_input_file.txt";
 
 	input_process(&fileManager, &macroManager, file_path);
 
