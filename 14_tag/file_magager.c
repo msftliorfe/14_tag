@@ -49,13 +49,6 @@ void input_process(FileManager* fileManager, MacroManager* macroManager, const c
 				}
 				fileManager->post_macro[fileManager->row_count] = row;
 				fileManager->row_count++;
-				
-
-
-				//for (int j = 0; row[j] != NULL; j++) {
-				//	char* cell = row[j];  // Each cell is a char*
-				//	printf("Row %d, Column %d: %s\n", i, j, cell);
-				//}
 			}
 
 		}
@@ -80,12 +73,7 @@ void input_process(FileManager* fileManager, MacroManager* macroManager, const c
 		}
 		free(split_line);
 	}
-
-
-	//print_post_macro(fileManager);
 	fclose(file);
-
-
 }
 
 void print_post_macro(FileManager* manager) {

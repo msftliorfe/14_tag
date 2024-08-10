@@ -4,8 +4,10 @@
 #include "data_manager.h"
 #include "strings_manager.h";
 #include "number_handler.h"
-/* Assume these existing functions are defined elsewhere */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 char** handle_numbers(char** number_strings) {
 	char** result;
@@ -35,12 +37,6 @@ char** handle_numbers(char** number_strings) {
 	return result;
 }
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-char* remove_first_last(const char* str);  // Assume this is defined elsewhere
-char* letter_to_15bit_ascii(char c);      // Assume this is defined elsewhere
 
 char** handle_strings(const char* input_string) {
 	char* trimmed = remove_first_last(input_string);
@@ -71,7 +67,7 @@ char** handle_strings(const char* input_string) {
 
 	result[length + 1] = NULL;  // NULL-terminate the array
 
-	free(trimmed);  // Don't forget to free the trimmed string if it was dynamically allocated
+	free(trimmed);
 
 	return result;
 }

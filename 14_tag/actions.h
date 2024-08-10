@@ -21,6 +21,8 @@ const char* get_destination_operands(const char* action_name);
 
 // Function to get action code by action name
 const char* get_action_code(const char* action_name);
+
+// Function to get if action exists by action name
 bool action_exists(const char* action_name);
 
 #endif // ACTIONS_H

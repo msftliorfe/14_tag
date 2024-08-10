@@ -6,7 +6,7 @@
 #include "first_line_builder.h"
 #include "strings_manager.h"
 #include "operands.h"
-#include <stdbool.h> // Include for the bool type
+#include <stdbool.h>
 #include "immediate_builder.h"
 #include "register_builder.h"
 #include "number_handler.h"
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "direct_builder.h"
-// Function to create and initialize an AssemblerManager
+
 AssemblerManager* createAssemblerManager() {
 	AssemblerManager* manager = (AssemblerManager*)malloc(sizeof(AssemblerManager));
 	if (manager == NULL) {
@@ -31,16 +31,11 @@ AssemblerManager* createAssemblerManager() {
 	return manager;
 }
 
-// Function to destroy an AssemblerManager
 void destroyAssemblerManager(AssemblerManager* manager) {
 	free(manager->dataItems);
 	free(manager->actionItems);
 	free(manager);
 }
-
-//process_post_macro(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager) {
-//	first_scan(fileManager, assemblerManager, symbolsManager);
-//}
 
 void first_scan(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager) {
 	for (size_t i = 0; i < fileManager->row_count; ++i) {
@@ -277,7 +272,7 @@ void printObjToFile(const AssemblerManager* assemblerManager) {
 		exit(EXIT_FAILURE);
 	}
 
-	// Print the first line: IC+1 tab_space IC+2
+	// Print the first line: IC tab_space DC
 	fprintf(file, "%d\t%d\n", assemblerManager->IC, assemblerManager->DC);
 
 	// Print actionItems

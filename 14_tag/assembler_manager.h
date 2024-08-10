@@ -6,15 +6,14 @@
 #include "file_manager.h"
 #include "symbols_manager.h"
 
-// Define the Item structure
 typedef struct {
 	int location;
 	char* metadata;
-	char value[16]; // 15 bits + 1 for null terminator
+	char value[16];
 	char* octal;
 } Item;
 
-// Define the AssemblerManager struct
+
 typedef struct {
 	int IC;
 	int DC;
@@ -24,7 +23,6 @@ typedef struct {
 	size_t actionItemCount;
 } AssemblerManager;
 
-// Function prototypes
 AssemblerManager* createAssemblerManager();
 void destroyAssemblerManager(AssemblerManager* manager);
 void first_scan(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager);
@@ -35,9 +33,7 @@ void addActionItem(AssemblerManager* manager, char* metadata, int location, cons
 void printDataItems(const AssemblerManager* manager);
 void printActionItems(const AssemblerManager* manager);
 void updateLocationDataSymbols(const SymbolsManager* symbolsManager, const AssemblerManager* manager);
-//process_post_macro(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager);
 void updateDataItemsLocation(const AssemblerManager* manager);
-
 void second_scan(FileManager* fileManager, AssemblerManager* assemblerManager, SymbolsManager* symbolsManager);
 void printObjToFile(const AssemblerManager* assemblerManager);
 void printReferenceSymbolsToFile(const SymbolsManager* manager);
