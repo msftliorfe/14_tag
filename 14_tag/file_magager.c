@@ -84,6 +84,7 @@ void print_post_macro(FileManager* manager) {
 	}
 
 	// Determine the maximum number of columns for proper formatting
+	// depende on input file
 	size_t max_columns = 0;
 	for (size_t i = 0; i < manager->row_count; ++i) {
 		size_t j = 0;

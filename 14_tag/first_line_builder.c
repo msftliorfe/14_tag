@@ -9,13 +9,10 @@
 #include "operands.h"
 #include "number_handler.h"
 #include "first_line_builder.h"
-#define ACTION_CODE_LENGTH 4
-#define OPERAND_CODE_LENGTH 4
-#define TOTAL_LENGTH (ACTION_CODE_LENGTH + 2 * OPERAND_CODE_LENGTH + 1) // Adjust based on your needs
 
 // Helper function to generate operand code and return it as a new string
 char* generate_operand_code(const char* operand) {
-	char* code = malloc(OPERAND_CODE_LENGTH + 1); // Allocate memory for the code + null terminator
+	char* code = malloc(5); // Allocate memory for the code + null terminator
 	if (code == NULL) {
 		fprintf(stderr, "Memory allocation failed\n");
 		exit(EXIT_FAILURE);
@@ -49,7 +46,7 @@ char* generate_operand_code(const char* operand) {
 
 char* generate_first_line(const char* action_name, const char* operand_target, const char* operand_source) {
 	// Allocate memory for result string
-	char* res = malloc(TOTAL_LENGTH + 1); // +1 for the null terminator
+	char* res = malloc(16); // +1 for the null terminator
 	if (res == NULL) {
 		fprintf(stderr, "Memory allocation failed\n");
 		exit(EXIT_FAILURE);

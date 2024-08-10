@@ -12,12 +12,6 @@ char* register_are() {
 	return "100";
 }
 
-/**
- * Function to generate a single register line.
- * @param register_number Number of the register (0-7).
- * @param is_source Boolean indicating if the register is a source.
- * @return The generated line as a string, or NULL on error.
- */
 char* generate_single_register_line(int register_number, bool is_source) {
 	char* register_number_string = intToThreeBitBinary(register_number);
 	char* staticString = register_are();
@@ -52,12 +46,6 @@ char* generate_single_register_line(int register_number, bool is_source) {
 	return res;
 }
 
-/**
- * Function to generate a combined register line.
- * @param a_register_number Number of the first register (0-7).
- * @param b_register_number Number of the second register (0-7).
- * @return The generated line as a string, or NULL on error.
- */
 char* generate_combined_register_line(int a_register_number, int b_register_number) {
 	char* a_register_number_string = intToThreeBitBinary(a_register_number);
 	char* b_register_number_string = intToThreeBitBinary(b_register_number);

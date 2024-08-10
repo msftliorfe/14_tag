@@ -67,7 +67,7 @@ char** handle_strings(const char* input_string) {
 
 	result[length + 1] = NULL;  // NULL-terminate the array
 
-	free(trimmed);
+	free(trimmed);  // Don't forget to free the trimmed string if it was dynamically allocated
 
 	return result;
 }

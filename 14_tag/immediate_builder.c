@@ -7,7 +7,7 @@
 
 // Function to return a static string representation
 char* immediate_are() {
-	return "100"; // Static string, no need for memory management
+	return "100";
 }
 
 // Function to generate a line based on a given number
